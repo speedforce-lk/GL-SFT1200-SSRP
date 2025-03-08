@@ -1,33 +1,33 @@
-# GL-iNet GL-SFT1200 路由器安装 ShadowSocksR Plus 插件
+# Install ShadowSocksR Plus plugin on GL-iNet GL-SFT1200 router
 
-## 基于官方固件版本3.206安装SSRP插件
+## Install SSRP plugin based on official firmware version 3.206
 
-## 参考并提炼自以下网站：
-- 官方固件下载地址：https://dl.gl-inet.cn/?model=sft1200
-- 空间不够可参考openwrt扩容overlay[将 Overlay 空间指向外置存储](https://blog.digicat-studio.com/Technology/openwrt_overlay.html)
-- [GL-SFT1200官方固件一键安装魔法上网](https://www.126126.xyz/post/031/#%E5%8E%9F%E5%8E%82%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E9%AD%94%E6%B3%95%E4%B8%8A%E7%BD%91)（实测PassWall不太好用，不建议）
+## Referenced and extracted from the following websites:
+- Official firmware download address：https://dl.gl-inet.cn/?model=sft1200
+- If the space is not enough, please refer to OpenWRT expansion overlay [pointing Overlay space to external storage](https://blog.digicat-studio.com/Technology/openwrt_overlay.html)
+- [GL-SFT1200 official firmware one-click installation magic Internet access](https://www.126126.xyz/post/031/#%E5%8E%9F%E5%8E%82%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E9%AD%94%E6%B3%95%E4%B8%8A%E7%BD%91)(PassWall is not very useful in actual testing, so it is not recommended)
 
-## 一、手动安装方法
-1.下载Release压缩包，解压密码：ssrp；
+## 1. Manual installation method
+1.Download the Release compressed package and decompress it using the password: ssrp;
 
-2.使用winscp工具上传插件到路由器的/tmp/tmp/目录下；
+2.Use the winscp tool to upload the plug-in to the /tmp/tmp/ directory of the router;
 
-3.使用“cd /tmp/tmp/”进入插件上传目录；
+3.Use "cd /tmp/tmp/" to enter the plugin upload directory;
 
-4.使用“opkg update && opkg install *.ipk”命令进行安装后等待安装结束即可；
+4.Use the "opkg update && opkg install *.ipk" command to install and wait for the installation to complete;
 
-5.如果打开luci中的插件报错，再继续使用命令“opkg install luci-compat”安装luci-compat插件；
+5.If an error message appears when opening the luci plug-in, continue to use the command "opkg install luci-compat" to install the luci-compat plug-in;
 
-6.重新登录luci会看到“服务”菜单中有你刚刚安装的插件；
+6.Log in to luci again and you will see the plug-in you just installed in the "Service" menu;
 
-## 二、一键安装方法
+## 2. One-click installation method
     wget -qO- https://cdn.jsdelivr.net/gh/ericwang2006/sft1200_buddha/install.sh | sh -s ssr-plus
 
-## 三、优化
+## 3. Optimization
 
-1.如果SSRP无法启动，请先reboot，如还不行，尝试修改/etc/init.d/shadowsocksr中的START=99后再reboot。
+1.If SSRP cannot be started, please reboot first. If that still does not work, try to modify START=99 in /etc/init.d/shadowsocksr and then reboot.
 
-2.如果刷淘宝反应缓慢，先查看防火墙流量分载情况，并执行以下命令关闭硬件转发加速：
+2.If Taobao is slow to respond, first check the firewall traffic sharing status and execute the following command to disable hardware forwarding acceleration:
 
     uci show firewall
     .....
@@ -36,7 +36,7 @@
     uci commit firewall
     service firewall restart
 
-3.执行以下命令，关闭实时速度流量统计程序（管理网页上的关闭按钮，实际没有关闭统计程序），以改善系统负载；
+3.Execute the following command to close the real-time speed and traffic statistics program (the close button on the management webpage does not actually close the statistics program) to improve the system load;
 
     /etc/init.d/gl_tertf stop
     /etc/init.d/gl_tertf disable
